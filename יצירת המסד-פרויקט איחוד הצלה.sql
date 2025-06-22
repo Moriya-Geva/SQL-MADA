@@ -1,80 +1,97 @@
+ο»Ώ-- Χ™Χ¦Χ™Χ¨Χª ΧΧ΅Χ“ Χ ΧªΧ•Χ Χ™Χ
 CREATE DATABASE MADA
-go
---ιφιψϊ θαμϊ γψβδ
+GO
+
+-- Χ©Χ™ΧΧ•Χ© Χ‘ΧΧ΅Χ“ Χ”Χ ΧªΧ•Χ Χ™Χ Χ©Χ™Χ¦Χ¨Χ Χ•
 USE MADA
-CREATE TABLE darga
-(idDarga INT IDENTITY(1,1)PRIMARY KEY,
-nameDara VARCHAR(20) not null )
 GO
---ιφιψϊ θαμϊ ρεβι ψλα
-CREATE TABLE typeCars
-(idCar INT IDENTITY(1,1)PRIMARY KEY,
-type VARCHAR(20) not null)
-GO
---ιφιψϊ θαμϊ ρπιτιν
-CREATE TABLE branchs
-(idB INT IDENTITY(1,1)PRIMARY KEY,
-nameB VARCHAR(20) not null,
-addressb VARCHAR(20)  not null,
-city VARCHAR(20)  not null)
-GO
---ιφιψϊ θαμϊ ΰιψεςιν
-CREATE TABLE eventss 
-(idEvent INT IDENTITY(1,1)PRIMARY KEY,
-nameE VARCHAR(20) , 
-idCar INT references typeCars,
-idDmin INT REFERENCES darga,
-sumConan INT,
-sumGeneralConan INT)
-GO
---ιφιψϊ θαμϊ λεππιν
-CREATE TABLE conanim
-(idConan INT PRIMARY KEY,
-name VARCHAR(20) not null,
-idA INT REFERENCES branchs,
-idD INT REFERENCES darga  not null,
-idCar INT REFERENCES typeCars,
-phone VARCHAR(10)  not null,
-tokef DATE  not null
+
+-- Χ™Χ¦Χ™Χ¨Χª ΧΧ‘ΧΧª Χ“Χ¨Χ’Χ•Χª
+CREATE TABLE darga (
+    idDarga INT IDENTITY(1,1) PRIMARY KEY,
+    nameDara VARCHAR(20) NOT NULL
 )
 GO
---ιφιψϊ θαμϊ χψιΰεϊ
-CREATE TABLE calls 
-(idCall INT IDENTITY(1,1)PRIMARY KEY,
-time_call date not null,
-idA INT REFERENCES branchs,
-idEvent INT REFERENCES eventss ,
-discribe VARCHAR(40),
-exactAddress VARCHAR(50) ,
-story VARCHAR(50)
-)
---ιφιψϊ θαμϊ λεππιν μΰ τςιμιν
-GO
-CREATE TABLE no_active
-(idConan INT PRIMARY KEY,
-name VARCHAR(20),
-idA INT REFERENCES branchs,
-idD INT REFERENCES darga  not null,
-idCar INT REFERENCES typeCars,
-phone VARCHAR(10)  not null,
-tokef DATE  not null
-)
---ιφιψϊ θαμϊ ϊβεαεϊ
-use MADA
-CREATE TABLE replay_Of_Conan
-(idReplay INT IDENTITY(1,1)PRIMARY KEY,
-idCall INT REFERENCES calls  not null,
-idConan INT references conanim not null,
-time_arrive date  not null,
-ps VARCHAR (40)
+
+-- Χ™Χ¦Χ™Χ¨Χª ΧΧ‘ΧΧª Χ΅Χ•Χ’Χ™ Χ¨Χ›Χ‘Χ™Χ
+CREATE TABLE typeCars (
+    idCar INT IDENTITY(1,1) PRIMARY KEY,
+    type VARCHAR(20) NOT NULL
 )
 GO
---ιφιψϊ θαμϊ ΰψλιεο ωμ ϊβεαεϊ
-CREATE TABLE old_replay
-(idReplay INT PRIMARY KEY,
-idCall INT REFERENCES calls  not null,
-idConan INT references no_active not null,
-time_arrive date  not null,
-ps VARCHAR (40)
+
+-- Χ™Χ¦Χ™Χ¨Χª ΧΧ‘ΧΧª Χ΅Χ Χ™Χ¤Χ™Χ
+CREATE TABLE branchs (
+    idB INT IDENTITY(1,1) PRIMARY KEY,
+    nameB VARCHAR(20) NOT NULL,
+    addressb VARCHAR(20) NOT NULL,
+    city VARCHAR(20) NOT NULL
 )
-go
+GO
+
+-- Χ™Χ¦Χ™Χ¨Χª ΧΧ‘ΧΧª ΧΧ™Χ¨Χ•ΧΆΧ™Χ
+CREATE TABLE eventss (
+    idEvent INT IDENTITY(1,1) PRIMARY KEY,
+    nameE VARCHAR(20),
+    idCar INT REFERENCES typeCars,
+    idDmin INT REFERENCES darga,
+    sumConan INT,
+    sumGeneralConan INT
+)
+GO
+
+-- Χ™Χ¦Χ™Χ¨Χª ΧΧ‘ΧΧª Χ›Χ•Χ Χ Χ™Χ Χ¤ΧΆΧ™ΧΧ™Χ
+CREATE TABLE conanim (
+    idConan INT PRIMARY KEY,
+    name VARCHAR(20) NOT NULL,
+    idA INT REFERENCES branchs,
+    idD INT REFERENCES darga NOT NULL,
+    idCar INT REFERENCES typeCars,
+    phone VARCHAR(10) NOT NULL,
+    tokef DATE NOT NULL
+)
+GO
+
+-- Χ™Χ¦Χ™Χ¨Χª ΧΧ‘ΧΧª Χ§Χ¨Χ™ΧΧ•Χª
+CREATE TABLE calls (
+    idCall INT IDENTITY(1,1) PRIMARY KEY,
+    time_call DATE NOT NULL,
+    idA INT REFERENCES branchs,
+    idEvent INT REFERENCES eventss,
+    discribe VARCHAR(40),
+    exactAddress VARCHAR(50),
+    story VARCHAR(50)
+)
+GO
+
+-- ΧΧ‘ΧΧª Χ›Χ•Χ Χ Χ™Χ ΧΧ Χ¤ΧΆΧ™ΧΧ™Χ
+CREATE TABLE no_active (
+    idConan INT PRIMARY KEY,
+    name VARCHAR(20),
+    idA INT REFERENCES branchs,
+    idD INT REFERENCES darga NOT NULL,
+    idCar INT REFERENCES typeCars,
+    phone VARCHAR(10) NOT NULL,
+    tokef DATE NOT NULL
+)
+GO
+
+-- ΧΧ‘ΧΧª ΧªΧ’Χ•Χ‘Χ•Χª Χ›Χ•Χ Χ Χ™Χ Χ¤ΧΆΧ™ΧΧ™Χ
+CREATE TABLE replay_Of_Conan (
+    idReplay INT IDENTITY(1,1) PRIMARY KEY,
+    idCall INT REFERENCES calls NOT NULL,
+    idConan INT REFERENCES conanim NOT NULL,
+    time_arrive DATE NOT NULL,
+    ps VARCHAR(40)
+)
+GO
+
+-- ΧΧ‘ΧΧª ΧªΧ’Χ•Χ‘Χ•Χª Χ”Χ™Χ΅ΧΧ•Χ¨Χ™Χ•Χª ΧΧ›Χ•Χ Χ Χ™Χ ΧΧ Χ¤ΧΆΧ™ΧΧ™Χ
+CREATE TABLE old_replay (
+    idReplay INT PRIMARY KEY,
+    idCall INT REFERENCES calls NOT NULL,
+    idConan INT REFERENCES no_active NOT NULL,
+    time_arrive DATE NOT NULL,
+    ps VARCHAR(40)
+)
+GO
